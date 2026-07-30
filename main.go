@@ -32,7 +32,6 @@ func init() {
 		log.Fatal(err)
 	}
 
-	// Create a standard font face (size 36 at 72 DPI)
 	dinNormalFace, err = opentype.NewFace(f, &opentype.FaceOptions{
 		Size:    36,
 		DPI:     72,
@@ -47,7 +46,6 @@ func init() {
 }
 
 func update(screen *ebiten.Image) error {
-	// Initialize the glyphs for special (colorful) rendering.
 	var err error
 	if tick == 0 {
 		nextTimes, err = fetchNextTimes()
@@ -85,7 +83,6 @@ func draw(screen *ebiten.Image) {
 		op.GeoM.Translate(float64(x-50), float64(y-10))
 		screen.DrawImage(circleSubImg, op)
 
-		// Draw the number "2" inside the circle
 		text.Draw(screen, "2", dinNormalFace, x-37, y+22, color.White)
 
 		mins := fmtTime(nextTimes[i])
@@ -99,9 +96,7 @@ func draw(screen *ebiten.Image) {
 		}
 		s := fmt.Sprintf("Lynnwood       %s", str)
 
-		// Ebiten v1 text coordinates represent the *baseline* of the text,
-		// so we add the font size offset to the Y coordinate to match v2's top-left layout.
-		text.Draw(screen, s, dinNormalFace, x, y+30, color.White)
+		text.Draw(screen, s, dinNormalFace, x, y+22, color.White)
 		y += 60
 	}
 }
