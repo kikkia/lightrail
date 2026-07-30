@@ -66,6 +66,9 @@ func update(screen *ebiten.Image) error {
 	}
 
 	draw(screen)
+
+	// ghetto force 2fps?
+	time.Sleep(500 * time.Millisecond)
 	return nil
 }
 
