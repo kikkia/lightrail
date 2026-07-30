@@ -4,6 +4,8 @@ set -e
 ACTION=$1
 REPO_DIR="/home/kikkia/lightrail"
 
+export PATH=$PATH:/usr/local/go/bin:/home/kikkia/go/bin
+
 export DISPLAY=:0
 export XDG_RUNTIME_DIR="/run/user/$(id -u)"
 
