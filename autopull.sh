@@ -16,7 +16,6 @@ elif [ "$ACTION" = "wake" ]; then
     cd "$REPO_DIR"
     git pull origin master
     
-    go clean -cache
     go build
     
     echo "restarting"
