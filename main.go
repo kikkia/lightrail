@@ -121,6 +121,7 @@ func drawCircle(img *ebiten.Image, x, y, r int, clr color.Color) {
 func main() {
 	ebiten.SetRunnableOnUnfocused(true)
 	ebiten.SetFullscreen(true)
+	ebiten.SetCursorMode(ebiten.CursorModeHidden)
 	if err := ebiten.Run(update, screenWidth, screenHeight, 1.0, "Text (Ebitengine Demo)"); err != nil {
 		log.Fatal(err)
 	}
