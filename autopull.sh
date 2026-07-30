@@ -3,21 +3,28 @@ set -e
 
 ACTION=$1
 REPO_DIR="/home/kikkia/lightrail"
+
 export DISPLAY=:0
+export XDG_RUNTIME_DIR="/run/user/$(id -u)"
 
 if [ "$ACTION" = "sleep" ]; then
     echo "sleeping screen..."
-    xrandr --output $(xrandr | grep " connected" | cut -d' ' -f1 | head -n1) --off
+    OUTPUT=$(xrandr | grep " connected" | cut -d' ' -f1 | head -n1)
+    [ -n "$OUTPUT" ] && xrandr --output "$OUTPUT" --off
+
 elif [ "$ACTION" = "wake" ]; then
     echo "waking screen..."
-    xrandr --output $(xrandr | grep " connected" | cut -d' ' -f1 | head -n1) --auto
+    OUTPUT=$(xrandr | grep " connected" | cut -d' ' -f1 | head -n1)
+    [ -n "$OUTPUT" ] && xrandr --output "$OUTPUT" --auto
     
-    echo "pulling master"
+    echo "pulling master..."
     cd "$REPO_DIR"
+    git checkout master
     git pull origin master
     
-    go build
+    echo "building binary..."
+    go build -o lightrail .
     
-    echo "restarting"
-    sudo systemctl restart lightrail.service
+    echo "restarting lightrail user service..."
+    systemctl --user restart lightrail.service
 fi
