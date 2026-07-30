@@ -59,7 +59,7 @@ func update(screen *ebiten.Image) error {
 	}
 
 	tick++
-	tick = tick % 3600
+	tick = tick % 110
 
 	if ebiten.IsDrawingSkipped() {
 		return nil
