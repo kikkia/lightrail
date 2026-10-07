@@ -46,18 +46,17 @@ func init() {
 }
 
 func update(screen *ebiten.Image) error {
-	var err error
 	if tick == 0 {
-		nextTimes, err = fetchNextTimes()
-		log.Printf("%s", nextTimes)
-		log.Printf("%s", time.Now().UnixMilli())
+		returnTimes, err := fetchNextTimes()
 		if err != nil {
 			log.Printf("%s", err)
+		} else {
+			nextTimes = returnTimes
 		}
 	}
 
 	tick++
-	tick = tick % 110
+	tick = tick % 100
 
 	if ebiten.IsDrawingSkipped() {
 		return nil
@@ -75,6 +74,9 @@ func draw(screen *ebiten.Image) {
 	var x = 60
 	var y = 15
 	for i := 0; i < 4; i++ {
+		if len(nextTimes) == i {
+			break
+		}
 		if nextTimes[i] == 0 {
 			break
 		}
